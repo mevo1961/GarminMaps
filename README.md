@@ -1,2 +1,2 @@
 # GarminMaps
-some script to produce Garmin maps using OpenStreetMap data
+some scripts to produce Garmin maps using OpenStreetMap data
