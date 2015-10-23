@@ -1,0 +1,63 @@
+Ostalpen: 
+Koordinaten: 45.5 48.3 8.9 15.9
+MapId Karte: 6100
+MapId SRTM:  7100, 7150
+Family ID Karte:   1111
+Family ID SRTMMIN:   2111
+Family ID SRTMMAJ:   2113
+
+Westalpen: 
+Koordinaten: 43.5 47.7 5.0 8.95
+MapId Karte: 6200
+MapId SRTM:  7200, 7250
+Family ID Karte:   1221
+Family ID SRTMMIN:   2221
+Family ID SRTMMAJ:   2223
+
+Bayern: 
+Koordinaten: 47.2 50.6 8.6 13.9
+MapId Karte: 6300
+MapIds SRTM: 7300, 7350
+Family ID Karte:   1331
+Family ID SRTMMIN:   2331
+Family ID SRTMMAJ:   2333
+
+Deutschland: 
+Koordinaten: 47.2 55.2 5.7 15.1
+MapId Karte: 6400
+MapIds SRTM: 7400, 7450
+Family ID Karte:   1441
+Family ID SRTMMIN:   2441
+Family ID SRTMMAJ:   2443
+
+Südfrankreich: 
+Koordinaten: 42.2 47.3 -2.7 7.9
+MapId Karte: 6500
+MapIds SRTM: 7500, 7550
+Family ID Karte:   1551
+Family ID SRTMMIN:   2551
+Family ID SRTMMAJ:   2553
+
+Nordfrankreich: 
+Koordinaten: 47.0 51.1 -5.2 8.3
+MapId Karte: 6600
+MapIds SRTM: 7600, 7650
+Family ID Karte:   1661
+Family ID SRTMMIN:   2661
+Family ID SRTMMAJ:   2663
+
+Mallorca: 
+Koordinaten: 39.25 40.0  2.3 3.5
+MapId Karte: 6700
+MapIds SRTM: 7700, 7750
+Family ID Karte:   1771
+Family ID SRTMMIN:   2771
+Family ID SRTMMAJ:   2773
+
+Korsika: 
+Koordinaten: 39.25 40.0  2.3 3.5
+MapId Karte: 6800
+MapIds SRTM: 7800, 7850
+Family ID Karte:   1871
+Family ID SRTMMIN:   2871
+Family ID SRTMMAJ:   2873

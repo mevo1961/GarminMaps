@@ -1,0 +1,6 @@
+# format: name left right bottom top famid
+Berlin 13.0  13.8 52.3 52.7 1339 6754
+Muenchen 11.3 11.9 48.0 48.4 1339 6876
+München 11.3 11.9 48.0 48.4 1339 6876
+Holzkirchen 11.67 11.72 47.87 47.89 1339 6987
+
