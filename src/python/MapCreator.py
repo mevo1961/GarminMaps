@@ -16,29 +16,31 @@ class MapCreator(object):
         '''
         Constructor
         '''
-        pass
+        self.__cmdArgs = self.__parseCmd()
     
     def __parseCmd(self):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
 
         mandatory = parser.add_argument_group('mandatory arguments')
 
-        helpMsg = 'one or more JTest XML files'
-        parser.add_argument('-f', '--files', action='store', type=str, dest='files',
-                            required=False, nargs='+', metavar='FILE', help=helpMsg)
-
-        helpMsg = 'one or more directories including JTest XML files'
-        parser.add_argument('-d', '--dirs', action='store', type=str, dest='dirs',
-                            required=False, nargs='+', metavar='DIR', help=helpMsg)
-
-        helpMsg = 'scan directories recursive'
-        parser.add_argument('-r', '--recursive', action='store_true', dest='recursive',
-                            required=False, default=False, help=helpMsg)
-
-        helpMsg = 'CC&S source/SCT base directory. If this parameter is set, --dirs, --files will be ignored'
-        parser.add_argument('-b', '--base', action='store', type=str, dest='basedir',
+        helpMsg = 'bottom coordinate of the area to cut from input data'
+        parser.add_argument('-b', '--bottom', action='store', type=str, dest='bottom',
+                            required=False, help=helpMsg)
+        
+        helpMsg = 'top coordinate of the area to cut from input data'
+        parser.add_argument('-t', '--top', action='store', type=str, dest='top',
+                            required=False, help=helpMsg)
+        
+        helpMsg = 'bottom coordinate of the area to cut from input data'
+        parser.add_argument('-l', '--left', action='store', type=str, dest='left',
+                            required=False, help=helpMsg)
+        
+        helpMsg = 'bottom coordinate of the area to cut from input data'
+        parser.add_argument('-r', '--right', action='store', type=str, dest='right',
                             required=False, help=helpMsg)
 
-        helpMsg = 'output directory, where result JTest XML files will be stored'
-        mandatory.add_argument('-o', '--output', action='store', type=str, dest='outputdir',
-                               metavar='OUTPUT', required=True, help=helpMsg) 
+
+
+        helpMsg = 'input file containing OpenStreetMap data'
+        mandatory.add_argument('-i', '--input', action='store', type=str, dest='inputdir',
+                               metavar='INPUT', required=True, help=helpMsg) 
