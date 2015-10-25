@@ -1,2 +1,2 @@
 # GarminMaps
-test programs for the python code
+unittests for the python code
