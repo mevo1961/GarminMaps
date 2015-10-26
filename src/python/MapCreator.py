@@ -6,7 +6,6 @@ Created on 25.10.2015
 
 from argparse import ArgumentParser
 import sys
-import shlex
 
 class MapCreator(object):
     '''
@@ -18,7 +17,6 @@ class MapCreator(object):
         '''
         Constructor
         '''
-        # self.__cmdArgs = self.parseCmd(sys.argv[1:])
         self.__cmdArgs = self.parseCmd(options)
     
     def parseCmd(self, options):
@@ -42,8 +40,6 @@ class MapCreator(object):
         helpMsg = 'bottom coordinate of the area to cut from input data'
         parser.add_argument('-r', '--right', action='store', type=float, dest='right',
                             required=False, help=helpMsg)
-
-
 
         helpMsg = 'input file containing OpenStreetMap data'
         mandatory.add_argument('-i', '--input', action='store', type=str, dest='inputfile',
