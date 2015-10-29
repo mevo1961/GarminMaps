@@ -5,6 +5,9 @@ Created on 25.10.2015
 '''
 import unittest
 import shlex
+import sys
+sys.path.append('../../src/python')
+
 from MapCreator import MapCreator
 
 
