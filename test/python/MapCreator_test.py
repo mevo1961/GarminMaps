@@ -26,6 +26,7 @@ class Test(unittest.TestCase):
         argString = '-b 40 -t 60 -l 5 -r 15 --ci 20 --ce 40 --ca 80 --mi 6666 --mn FRA --fi 1111 --cid 2222 --cad 3333 --nc --no-contours -i input.txt'
         self.creator=MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
+
         self.assertEqual(40,          cmdArgs.bottom,     'bottom was not parsed properly')
         self.assertEqual(60,          cmdArgs.top,        'top was not parsed properly')
         self.assertEqual(5,           cmdArgs.left,       'left was not parsed properly')
@@ -51,6 +52,7 @@ class Test(unittest.TestCase):
         argString = '-i input.txt'
         self.creator=MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
+
         self.assertEqual(47.2,          cmdArgs.bottom,     'bottom was not parsed properly')
         self.assertEqual(55.2,          cmdArgs.top,        'top was not parsed properly')
         self.assertEqual(5.7,           cmdArgs.left,       'left was not parsed properly')
@@ -63,7 +65,8 @@ class Test(unittest.TestCase):
         self.assertEqual(6400,        cmdArgs.mapid,      'mapid was not parsed properly')
         self.assertEqual("GER",       cmdArgs.mapname,    'mapname was not parsed properly')
         
-        self.assertEqual(1441,        cmdArgs.famid,      'family id was not parsed properly')
+        # self.assertEqual(1441,        cmdArgs.famid,      'family id was not parsed properly')
+        self.assertEqual(1442,        cmdArgs.famid,      'family id was not parsed properly')
         self.assertEqual(2441,        cmdArgs.cminid,     'minor contour map family id was not parsed properly')
         self.assertEqual(2443,        cmdArgs.cmaxid,     'major contour map family id was not parsed properly')
         
