@@ -65,8 +65,7 @@ class Test(unittest.TestCase):
         self.assertEqual(6400,        cmdArgs.mapid,      'mapid was not parsed properly')
         self.assertEqual("GER",       cmdArgs.mapname,    'mapname was not parsed properly')
         
-        # self.assertEqual(1441,        cmdArgs.famid,      'family id was not parsed properly')
-        self.assertEqual(1442,        cmdArgs.famid,      'family id was not parsed properly')
+        self.assertEqual(1441,        cmdArgs.famid,      'family id was not parsed properly')
         self.assertEqual(2441,        cmdArgs.cminid,     'minor contour map family id was not parsed properly')
         self.assertEqual(2443,        cmdArgs.cmaxid,     'major contour map family id was not parsed properly')
         
