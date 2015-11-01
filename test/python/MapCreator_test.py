@@ -6,6 +6,8 @@ Created on 25.10.2015
 import unittest
 import shlex
 import sys
+import xmlrunner
+
 sys.path.append('../../src/python')
 
 from MapCreator import MapCreator
@@ -53,10 +55,10 @@ class Test(unittest.TestCase):
         self.creator=MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
 
-        self.assertEqual(47.2,          cmdArgs.bottom,     'bottom was not parsed properly')
-        self.assertEqual(55.2,          cmdArgs.top,        'top was not parsed properly')
-        self.assertEqual(5.7,           cmdArgs.left,       'left was not parsed properly')
-        self.assertEqual(15.1,          cmdArgs.right,      'right was not parsed properly')
+        self.assertEqual(47.2,        cmdArgs.bottom,     'bottom was not parsed properly')
+        self.assertEqual(55.2,        cmdArgs.top,        'top was not parsed properly')
+        self.assertEqual(5.7,         cmdArgs.left,       'left was not parsed properly')
+        self.assertEqual(15.1,        cmdArgs.right,      'right was not parsed properly')
         
         self.assertEqual(10,          cmdArgs.cstepmin,   'minimum contour step was not parsed properly')
         self.assertEqual(50,          cmdArgs.cstepmed,   'medium contour step was not parsed properly')
@@ -69,12 +71,11 @@ class Test(unittest.TestCase):
         self.assertEqual(2441,        cmdArgs.cminid,     'minor contour map family id was not parsed properly')
         self.assertEqual(2443,        cmdArgs.cmaxid,     'major contour map family id was not parsed properly')
         
-        self.assertEqual(False,        cmdArgs.nocontours, 'nocontours flag was not parsed properly')
+        self.assertEqual(False,       cmdArgs.nocontours, 'nocontours flag was not parsed properly')
            
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
 
 
 if __name__ == "__main__":
-    import xmlrunner
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
