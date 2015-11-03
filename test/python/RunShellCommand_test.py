@@ -5,6 +5,7 @@ Created on 02.11.2015
 '''
 import unittest
 import datetime
+import time
 import sys
 import xmlrunner
 
@@ -41,4 +42,4 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = 'RSC_' + time.strftime("%Y%m%d%H%M%S")))

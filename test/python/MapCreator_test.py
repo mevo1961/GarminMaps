@@ -6,6 +6,7 @@ Created on 25.10.2015
 import unittest
 import shlex
 import sys
+import time
 import xmlrunner
 
 sys.path.append('../../src/python')
@@ -84,5 +85,5 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = 'MC_' + time.strftime("%Y%m%d%H%M%S")))
     # unittest.main()
