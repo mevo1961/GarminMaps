@@ -5,6 +5,10 @@ Created on 02.11.2015
 '''
 import unittest
 import datetime
+import sys
+
+sys.path.append('../../src/python')
+
 from RunShellCommand import RunShellCommand
 
 
