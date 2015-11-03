@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         pass
 
 
-    def testParseCmd_All_OK(self):
+    def testParseCmdLine_All_OK(self):
         argString = '-b 40 -t 60 -l 5 -r 15 --ci 20 --ce 40 --ca 80 --mi 6666 --mn FRA --fi 1111 --cid 2222 --cad 3333 --nc --no-contours -i input.txt'
         self.creator=MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
@@ -50,9 +50,9 @@ class Test(unittest.TestCase):
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
     
-    def testParseCmd_Defaults(self):
+    def testParseCmdLine_Defaults(self):
         argString = '-i input.txt'
-        self.creator=MapCreator(shlex.split(argString))
+        self.creator = MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
 
         self.assertEqual(47.2,        cmdArgs.bottom,     'bottom was not parsed properly')
@@ -75,7 +75,14 @@ class Test(unittest.TestCase):
            
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
+    # def testCutOutMapData(self):
+        # argString = '-i input.txt'
+        # self.creator =M apCreator(shlex.split(argString))
+        # self.creator.cutOutMapData()
+        # pass
+        
 
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
+    # unittest.main()

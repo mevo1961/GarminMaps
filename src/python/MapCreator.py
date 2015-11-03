@@ -6,6 +6,9 @@ Created on 25.10.2015
 
 from argparse import ArgumentParser
 import sys
+import os
+
+from RunShellCommand import RunShellCommand
 
 class MapCreator(object):
     '''
@@ -17,9 +20,12 @@ class MapCreator(object):
         '''
         Constructor
         '''
-        self.__cmdArgs = self.parseCmd(options)
+        self.__cmdArgs  = self.parseCmdLine(options)
+        self.__toolsDir = os.path.abspath("../../tools")
+        self.__dataDir  = os.path.abspath("../../data")
+        self.__executor = RunShellCommand()
     
-    def parseCmd(self, options):
+    def parseCmdLine(self, options):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
         # parser = ArgumentParser()
 
@@ -92,6 +98,15 @@ class MapCreator(object):
     
     def getArgs(self):
         return self.__cmdArgs
+    
+    
+    def cutOutMapData(self):
+        self.__osmosisdir = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
+        cmdstr = self.__osmosisdir + "--help"
+        print cmdstr
+        res = self.__executor.execShellCmd(cmdstr)
+        return res
+        
     
 if __name__ == "__main__":
     args = MapCreator(sys.argv[1:]).getArgs()
