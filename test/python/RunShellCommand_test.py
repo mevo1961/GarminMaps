@@ -6,6 +6,7 @@ Created on 02.11.2015
 import unittest
 import datetime
 import sys
+import xmlrunner
 
 sys.path.append('../../src/python')
 
@@ -40,5 +41,4 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testExecShellCmd']
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output='test-reports'))
