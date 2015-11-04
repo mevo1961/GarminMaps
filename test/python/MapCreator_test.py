@@ -7,6 +7,7 @@ import unittest
 import shlex
 import sys
 import time
+import os
 import xmlrunner
 
 sys.path.append('../../src/python')
@@ -87,5 +88,5 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = 'MC_' + time.strftime("%Y%m%d%H%M%S")))
-    # unittest.main()
+    filename, dummy = os.path.splitext(__file__)
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = filename + '-' + time.strftime("%Y%m%d%H%M%S")))

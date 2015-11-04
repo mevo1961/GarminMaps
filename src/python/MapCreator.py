@@ -110,6 +110,11 @@ class MapCreator(object):
         print cmdstr
         res = self.__executor.execShellCmd(cmdstr)
         return res
+    
+    
+    def isKnownExtension(self, inputfile):
+        dummy, file_extension = os.path.splitext(inputfile)
+        return file_extension in ('.bz2', '.osm', '.pbf')
         
     
 if __name__ == "__main__":
