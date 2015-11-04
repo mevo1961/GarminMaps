@@ -20,9 +20,9 @@ class MapCreator(object):
         '''
         Constructor
         '''
-        self.__cmdArgs  = self.parseCmdLine(options)
+        self.__cmdArgs = self.parseCmdLine(options)
         self.__toolsDir = os.path.abspath("../../tools")
-        self.__dataDir  = os.path.abspath("../../data")
+        self.__dataDir = os.path.abspath("../../data")
         self.__executor = RunShellCommand()
     
     def parseCmdLine(self, options):
