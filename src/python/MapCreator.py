@@ -48,6 +48,10 @@ class MapCreator(object):
         parser.add_argument('-r', '--right', action='store', type=float, dest='right',
                             required=False, default=15.1, help=helpMsg)
         
+        helpMsg = 'path of polygon file'
+        parser.add_argument('-p', '--poly', action='store', type=str, dest='poly',
+                            required=False, help=helpMsg)
+        
         # contourline options
         helpMsg = 'distance between minor contour lines'
         parser.add_argument('--ci', '--contour-step-min', action='store', type=int, dest='cstepmin',

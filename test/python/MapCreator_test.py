@@ -26,29 +26,31 @@ class Test(unittest.TestCase):
 
 
     def testParseCmdLine_All_OK(self):
-        argString = '-b 40 -t 60 -l 5 -r 15 --ci 20 --ce 40 --ca 80 --mi 6666 --mn FRA --fi 1111 --cid 2222 --cad 3333 --nc --no-contours -i input.txt'
+        argString = '-b 40 -t 60 -l 5 -r 15 -p germany.poly --ci 20 --ce 40 --ca 80 --mi 6666 --mn FRA --fi 1111 --cid 2222 --cad 3333 --nc --no-contours -i input.osm'
         self.creator=MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
 
-        self.assertEqual(40,          cmdArgs.bottom,     'bottom was not parsed properly')
-        self.assertEqual(60,          cmdArgs.top,        'top was not parsed properly')
-        self.assertEqual(5,           cmdArgs.left,       'left was not parsed properly')
-        self.assertEqual(15,          cmdArgs.right,      'right was not parsed properly')
+        self.assertEqual(40,             cmdArgs.bottom,     'bottom was not parsed properly')
+        self.assertEqual(60,             cmdArgs.top,        'top was not parsed properly')
+        self.assertEqual(5,              cmdArgs.left,       'left was not parsed properly')
+        self.assertEqual(15,             cmdArgs.right,      'right was not parsed properly')
         
-        self.assertEqual(20,          cmdArgs.cstepmin,   'minimum contour step was not parsed properly')
-        self.assertEqual(40,          cmdArgs.cstepmed,   'medium contour step was not parsed properly')
-        self.assertEqual(80,         cmdArgs.cstepmax,   'maximum contour step was not parsed properly')
+        self.assertEqual('germany.poly', cmdArgs.poly,       'polygon file was not parsed properly')
         
-        self.assertEqual(6666,        cmdArgs.mapid,      'mapid was not parsed properly')
-        self.assertEqual("FRA",       cmdArgs.mapname,    'mapname was not parsed properly')
+        self.assertEqual(20,             cmdArgs.cstepmin,   'minimum contour step was not parsed properly')
+        self.assertEqual(40,             cmdArgs.cstepmed,   'medium contour step was not parsed properly')
+        self.assertEqual(80,             cmdArgs.cstepmax,   'maximum contour step was not parsed properly')
         
-        self.assertEqual(1111,        cmdArgs.famid,      'family id was not parsed properly')
-        self.assertEqual(2222,        cmdArgs.cminid,     'minor contour map family id was not parsed properly')
-        self.assertEqual(3333,        cmdArgs.cmaxid,     'major contour map family id was not parsed properly')
+        self.assertEqual(6666,           cmdArgs.mapid,      'mapid was not parsed properly')
+        self.assertEqual("FRA",          cmdArgs.mapname,    'mapname was not parsed properly')
         
-        self.assertEqual(True,        cmdArgs.nocontours, 'nocontours flag was not parsed properly')
+        self.assertEqual(1111,           cmdArgs.famid,      'family id was not parsed properly')
+        self.assertEqual(2222,           cmdArgs.cminid,     'minor contour map family id was not parsed properly')
+        self.assertEqual(3333,           cmdArgs.cmaxid,     'major contour map family id was not parsed properly')
+        
+        self.assertEqual(True,           cmdArgs.nocontours, 'nocontours flag was not parsed properly')
            
-        self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
+        self.assertEqual('input.osm',    cmdArgs.inputfile,  'inputfile was not parsed properly')
         
     
     def testParseCmdLine_Defaults(self):
