@@ -79,11 +79,26 @@ class Test(unittest.TestCase):
            
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
-    # def testCutOutMapData(self):
-        # argString = '-i input.txt'
-        # self.creator =M apCreator(shlex.split(argString))
+    def testCutOutMapData(self):
+        argString = '-i input.txt'
+        self.creator = MapCreator(shlex.split(argString))
         # self.creator.cutOutMapData()
-        # pass
+        pass
+    
+    
+    def testCheckInputFile(self):
+        argString = '-i input.txt'
+        self.creator = MapCreator(shlex.split(argString))
+        cmdArgs = self.creator.getArgs()
+        # file does not exist, must throw exception
+        with self.assertRaises(IOError):
+            self.creator.checkInputFile(cmdArgs.inputfile)
+        # the following infile must be accepted 
+        infile = '../../data/germany.osm'
+        self.assertTrue(self.creator.checkInputFile(infile), "%s is a valid inputfile" % infile)
+        # the following infile must not be accepted
+        infile = '../../data/mapdata.txt'
+        self.assertFalse(self.creator.checkInputFile(infile), "%s is not a valid inputfile" % infile)
         
 
 

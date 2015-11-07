@@ -115,6 +115,15 @@ class MapCreator(object):
     def isKnownExtension(self, inputfile):
         dummy, file_extension = os.path.splitext(inputfile)
         return file_extension in ('.bz2', '.osm', '.pbf')
+    
+    def checkInputFile(self, inputfile):
+        # the following statment will throw an error if the input file can't be read
+        with open(inputfile, 'r') as dummy:
+            pass
+        
+        return self.isKnownExtension(inputfile)
+        
+        
         
     
 if __name__ == "__main__":
