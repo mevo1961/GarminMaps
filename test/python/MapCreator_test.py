@@ -79,10 +79,9 @@ class Test_MapCreator(unittest.TestCase):
            
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
-    def testCutOutMapData(self):
-        argString = '-i input.txt'
-        self.creator = MapCreator(shlex.split(argString))
-        self.creator.cutOutMapData()
+    def testCutMapDataWithPolygon(self):
+        # TODO: implement function
+        pass
     
     
     def testCheckInputFile(self):

@@ -7,6 +7,7 @@ Created on 25.10.2015
 from argparse import ArgumentParser
 import sys
 import os
+import logging
 
 from ShellCommand import ShellCommand
 from OsmosisCommand import OsmosisCommand
@@ -26,6 +27,7 @@ class MapCreator(object):
         self.__dataDir = os.path.abspath("../../data")
         self.__osmosisCmd = OsmosisCommand()
         self.__executor = ShellCommand()
+        logging.basicConfig(level=logging.DEBUG)
     
     def parseCmdLine(self, options):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
@@ -115,10 +117,15 @@ class MapCreator(object):
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile=self.getArgs().inputfile, 
                                                      outfile=self.__dataDir + "temp.osm",
                                                      poly=self.getArgs().poly)
-        print cmdstr
-        res = self.__execOsmosis.execOsmosisCmd(cmdstr)
+        logging.debug('cutMapDataWithPolygon: cmdstr = %s' % cmdstr)
+        res = self.__executor.execShellCmd(cmdstr)
         return res
     
+    def cutMapDataWithBoundingBox(self):
+        cmdstr = self.__osmosisCmd.cutMapWithBoundingBox()
+        logging.debug('cutMapDataWithBoundingBox: cmdstr = %s' % cmdstr)
+        res = self.__executor.execShellCmd(cmdstr)
+        return res
     
     def isKnownExtension(self, inputfile):
         dummy, file_extension = os.path.splitext(inputfile)

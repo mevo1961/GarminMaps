@@ -19,9 +19,18 @@ class OsmosisCommand(object):
         self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
           
     def cutMapWithPolygon(self, infile="germany.osm", outfile="temp.osm", poly="germany.poly"):
-        cmd = self.__osmosisTool                          + \
+        cmd = self.__osmosisTool                           + \
               ' --read-xml file="'         + infile  + '"' + \
               ' --bounding-polygon file="' + poly    + '"' + \
               ' --write-xml file="'        + outfile + '"'
               
-        return cmd 
+        return cmd
+    
+    def cutMapWithBoundingBox(self, infile="germany.osm", outfile="temp.osm",
+                              top=55.2, left=5.7, bottom=47.2, right=15.1):
+        cmd = self.__osmosisTool                                            + \
+              ' --read-xml file="'   + infile      + '"'                    + \
+              ' --bounding-box top=' + str(top)    + ' left=' + str(left)   + \
+              ' bottom='             + str(bottom) + ' right=' + str(right) + \
+              ' --write-xml file="'  + outfile     + '"'
+        return cmd
