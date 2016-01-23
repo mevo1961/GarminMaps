@@ -12,14 +12,14 @@ import xmlrunner
 
 sys.path.append('../../src/python')
 
-from RunShellCommand import RunShellCommand
+import ShellCommand.ShellCommand
 
 
-class Test(unittest.TestCase):
+class Test_ShellCommand(unittest.TestCase):
 
 
     def setUp(self):
-        self.executor = RunShellCommand()
+        self.executor = ShellCommand()
 
 
     def tearDown(self):

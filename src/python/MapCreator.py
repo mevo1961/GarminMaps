@@ -8,7 +8,8 @@ from argparse import ArgumentParser
 import sys
 import os
 
-from RunShellCommand import RunShellCommand
+from ShellCommand import ShellCommand
+from OsmosisCommand import OsmosisCommand
 
 class MapCreator(object):
     '''
@@ -23,7 +24,8 @@ class MapCreator(object):
         self.__cmdArgs = self.parseCmdLine(options)
         self.__toolsDir = os.path.abspath("../../tools")
         self.__dataDir = os.path.abspath("../../data")
-        self.__executor = RunShellCommand()
+        self.__osmosisCmd = OsmosisCommand()
+        self.__executor = ShellCommand()
     
     def parseCmdLine(self, options):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
@@ -103,12 +105,18 @@ class MapCreator(object):
     def getArgs(self):
         return self.__cmdArgs
     
-    
-    def cutOutMapData(self):
+    def runOsmosisCommand(self, cmd):
         self.__osmosisdir = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
-        cmdstr = self.__osmosisdir + "--help"
-        print cmdstr
+        cmdstr = self.__osmosisdir + cmd
         res = self.__executor.execShellCmd(cmdstr)
+        return res
+    
+    def cutMapDataWithPolygon(self):
+        cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile=self.getArgs().inputfile, 
+                                                     outfile=self.__dataDir + "temp.osm",
+                                                     poly=self.getArgs().poly)
+        print cmdstr
+        res = self.__execOsmosis.execOsmosisCmd(cmdstr)
         return res
     
     
@@ -117,15 +125,13 @@ class MapCreator(object):
         return file_extension in ('.bz2', '.osm', '.pbf')
     
     def checkInputFile(self, inputfile):
-        # the following statment will throw an error if the input file can't be read
+        # the following statement will throw an error if the input file can't be read
         with open(inputfile, 'r') as dummy:
             pass
         
         return self.isKnownExtension(inputfile)
         
-        
-        
-    
+          
 if __name__ == "__main__":
     args = MapCreator(sys.argv[1:]).getArgs()
     print ("inputfile = %s") % (args.inputfile)

@@ -15,7 +15,7 @@ sys.path.append('../../src/python')
 from MapCreator import MapCreator
 
 
-class Test(unittest.TestCase):
+class Test_MapCreator(unittest.TestCase):
 
 
     def setUp(self):
@@ -82,8 +82,7 @@ class Test(unittest.TestCase):
     def testCutOutMapData(self):
         argString = '-i input.txt'
         self.creator = MapCreator(shlex.split(argString))
-        # self.creator.cutOutMapData()
-        pass
+        self.creator.cutOutMapData()
     
     
     def testCheckInputFile(self):

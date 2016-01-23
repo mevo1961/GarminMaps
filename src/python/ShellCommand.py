@@ -7,7 +7,7 @@ Created on 02.11.2015
 import shlex
 import subprocess
 
-class RunShellCommand(object):
+class ShellCommand(object):
     '''
     classdocs
     '''
