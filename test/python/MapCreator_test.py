@@ -9,6 +9,7 @@ import sys
 import time
 import os
 import xmlrunner
+import logging
 
 sys.path.append('../../src/python')
 
@@ -19,7 +20,10 @@ class Test_MapCreator(unittest.TestCase):
 
 
     def setUp(self):
-        pass
+        self.__toolsDir = os.path.abspath("../../tools")
+        self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
+        self.__dataDir = os.path.abspath("../../data")
+        logging.basicConfig(level=logging.DEBUG)
 
 
     def tearDown(self):
@@ -80,23 +84,29 @@ class Test_MapCreator(unittest.TestCase):
         self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
     def testCutMapDataWithPolygon(self):
-        # TODO: implement function
-        pass
+        argString = '-i germany.osm -p germany.poly'
+        outfile = self.__dataDir + "/temp.osm"
+        self.creator = MapCreator(shlex.split(argString), test=True)
+        result = self.creator.cutMapDataWithPolygon()
+        logging.debug('commandstring returned by MapCreator: %s' % result)
+        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-polygon file="germany.poly" --write-xml file="' + outfile + '"'
+        logging.debug('expected commandstring:               %s' % expectedStr)
+        self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon')
     
     
-    def testCheckInputFile(self):
+    def testIsInputFileOk(self):
         argString = '-i input.txt'
         self.creator = MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
         # file does not exist, must throw exception
         with self.assertRaises(IOError):
-            self.creator.checkInputFile(cmdArgs.inputfile)
+            self.creator.isInputFileOk(cmdArgs.inputfile)
         # the following infile must be accepted 
         infile = '../../data/germany.osm'
-        self.assertTrue(self.creator.checkInputFile(infile), "%s is a valid inputfile" % infile)
+        self.assertTrue(self.creator.isInputFileOk(infile), "%s is a valid inputfile" % infile)
         # the following infile must not be accepted
         infile = '../../data/mapdata.txt'
-        self.assertFalse(self.creator.checkInputFile(infile), "%s is not a valid inputfile" % infile)
+        self.assertFalse(self.creator.isInputFileOk(infile), "%s is not a valid inputfile" % infile)
         
 
 

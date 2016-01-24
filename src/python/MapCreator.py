@@ -5,7 +5,7 @@ Created on 25.10.2015
 '''
 
 from argparse import ArgumentParser
-import sys
+import shlex
 import os
 import logging
 
@@ -18,7 +18,7 @@ class MapCreator(object):
     '''
 
 
-    def __init__(self, options):
+    def __init__(self, options, test=False):
         '''
         Constructor
         '''
@@ -26,8 +26,9 @@ class MapCreator(object):
         self.__toolsDir = os.path.abspath("../../tools")
         self.__dataDir = os.path.abspath("../../data")
         self.__osmosisCmd = OsmosisCommand()
-        self.__executor = ShellCommand()
-        logging.basicConfig(level=logging.DEBUG)
+        self.__executor = ShellCommand(test)
+        logging.basicConfig(level=logging.INFO)
+        logging.debug('MapCreator created with testmode = %s' % test)
     
     def parseCmdLine(self, options):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
@@ -107,15 +108,9 @@ class MapCreator(object):
     def getArgs(self):
         return self.__cmdArgs
     
-    def runOsmosisCommand(self, cmd):
-        self.__osmosisdir = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
-        cmdstr = self.__osmosisdir + cmd
-        res = self.__executor.execShellCmd(cmdstr)
-        return res
-    
     def cutMapDataWithPolygon(self):
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile=self.getArgs().inputfile, 
-                                                     outfile=self.__dataDir + "temp.osm",
+                                                     outfile=self.__dataDir + "/temp.osm",
                                                      poly=self.getArgs().poly)
         logging.debug('cutMapDataWithPolygon: cmdstr = %s' % cmdstr)
         res = self.__executor.execShellCmd(cmdstr)
@@ -131,7 +126,7 @@ class MapCreator(object):
         dummy, file_extension = os.path.splitext(inputfile)
         return file_extension in ('.bz2', '.osm', '.pbf')
     
-    def checkInputFile(self, inputfile):
+    def isInputFileOk(self, inputfile):
         # the following statement will throw an error if the input file can't be read
         with open(inputfile, 'r') as dummy:
             pass
@@ -140,5 +135,7 @@ class MapCreator(object):
         
           
 if __name__ == "__main__":
-    args = MapCreator(sys.argv[1:]).getArgs()
+    argString = '-i input.txt'
+    args = MapCreator(shlex.split(argString)).getArgs()
+    # args = MapCreator(sys.argv[1:]).getArgs()
     print ("inputfile = %s") % (args.inputfile)

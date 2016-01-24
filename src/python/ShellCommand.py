@@ -13,22 +13,29 @@ class ShellCommand(object):
     '''
 
 
-    def __init__(self):
+    def __init__(self, test=False):
         '''
         Constructor
         '''
-        pass
+        self.__test = test
     
     
     def execShellCmd(self, cmdstring):
         command = shlex.split(cmdstring)
-        res = subprocess.call(command)
+        if self.__test:
+            res = cmdstring
+        else:
+            res = subprocess.call(command)
         return res
     
     def execShellCmdWithOutput(self, cmdstring):
         command = shlex.split(cmdstring)
-        tmp = subprocess.Popen(command, stdout=subprocess.PIPE)
-        tmp.wait()
-        result = tmp.returncode
-        output = tmp.stdout.read()
+        if self.__test:
+            result = 0
+            output = cmdstring
+        else:
+            tmp = subprocess.Popen(command, stdout=subprocess.PIPE)
+            tmp.wait()
+            result = tmp.returncode
+            output = tmp.stdout.read()
         return (result, output)
