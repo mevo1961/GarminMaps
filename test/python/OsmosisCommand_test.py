@@ -7,6 +7,8 @@ import os
 import sys
 import unittest
 import logging
+import time
+import xmlrunner
 
 sys.path.append('../../src/python')
 
@@ -57,5 +59,4 @@ class Test_OsmosisCommand(unittest.TestCase):
         self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
 
 if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testCutMapWithPolygon']
-    unittest.main()
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))

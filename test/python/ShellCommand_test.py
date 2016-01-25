@@ -12,7 +12,7 @@ import xmlrunner
 
 sys.path.append('../../src/python')
 
-import ShellCommand.ShellCommand
+from ShellCommand import ShellCommand
 
 
 class Test_ShellCommand(unittest.TestCase):
@@ -43,5 +43,4 @@ class Test_ShellCommand(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    filename, dummy = os.path.splitext(__file__)
-    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = filename + '-' + time.strftime("%Y%m%d%H%M%S")))
+    unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))

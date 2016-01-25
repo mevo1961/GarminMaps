@@ -111,5 +111,4 @@ class Test_MapCreator(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    filename, dummy = os.path.splitext(__file__)
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))
