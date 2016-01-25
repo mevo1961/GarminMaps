@@ -4,8 +4,11 @@ Created on 23.01.2016
 @author: mevo
 '''
 import os
+import sys
 import unittest
 import logging
+
+sys.path.append('../../src/python')
 
 from OsmosisCommand import OsmosisCommand
 

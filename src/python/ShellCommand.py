@@ -9,7 +9,11 @@ import subprocess
 
 class ShellCommand(object):
     '''
-    classdocs
+    Created on 23.01.2016
+
+    @author: mevo
+    
+    Class to execute shell commands
     '''
 
 

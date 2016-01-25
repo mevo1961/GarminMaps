@@ -2,6 +2,8 @@
 Created on 23.01.2016
 
 @author: mevo
+
+class to deliver an osmosis command as a string
 '''
 
 import os
