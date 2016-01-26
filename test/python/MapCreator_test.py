@@ -93,7 +93,6 @@ class Test_MapCreator(unittest.TestCase):
         logging.debug('expected commandstring:               %s' % expectedStr)
         self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon')
     
-    
     def testIsDataFileOk(self):
         argString = '-i input.txt'
         self.creator = MapCreator(shlex.split(argString))
@@ -103,11 +102,25 @@ class Test_MapCreator(unittest.TestCase):
             self.creator.isDataFileOk(cmdArgs.inputfile)
         # the following infile must be accepted 
         infile = self.__dataDir + 'germany.osm'
-        self.assertTrue(self.creator.isDataFileOk(infile), "%s is a valid inputfile" % infile)
+        self.assertTrue(self.creator.isDataFileOk(infile), "%s is a not valid inputfile" % infile)
         # the following infile must not be accepted
         infile = self.__dataDir + 'mapdata.txt'
-        self.assertFalse(self.creator.isDataFileOk(infile), "%s is not a valid inputfile" % infile)
-        
+        self.assertFalse(self.creator.isDataFileOk(infile), "%s is a valid inputfile" % infile)
+    
+    
+    def testIsPolyFileOk(self):
+        argString = '-i germany.osm -p input.poly'
+        self.creator = MapCreator(shlex.split(argString))
+        cmdArgs = self.creator.getArgs()
+        # file does not exist, must throw exception
+        with self.assertRaises(IOError):
+            self.creator.isPolyFileOk(cmdArgs.inputfile)
+        # the following infile must be accepted 
+        polyfile = self.__dataDir + 'germany.poly'
+        self.assertTrue(self.creator.isPolyFileOk(polyfile), "%s is a not valid inputfile" % polyfile)
+        # the following infile must not be accepted
+        polyfile = self.__dataDir + 'germany.osm'
+        self.assertFalse(self.creator.isPolyFileOk(polyfile), "%s is a valid inputfile" % polyfile)    
 
 
 if __name__ == "__main__":
