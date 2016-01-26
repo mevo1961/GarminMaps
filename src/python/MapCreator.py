@@ -23,11 +23,11 @@ class MapCreator(object):
         Constructor
         '''
         self.__cmdArgs = self.parseCmdLine(options)
-        self.__toolsDir = os.path.abspath("../../tools")
-        self.__dataDir = os.path.abspath("../../data")
+        self.__toolsDir = os.path.abspath("../../tools") + "/"
+        self.__dataDir = os.path.abspath("../../data") + "/"
         self.__osmosisCmd = OsmosisCommand()
         self.__executor = ShellCommand(test)
-        logging.basicConfig(level=logging.INFO)
+        logging.basicConfig(level=logging.DEBUG)
         logging.debug('MapCreator created with testmode = %s' % test)
     
     def parseCmdLine(self, options):
@@ -109,29 +109,44 @@ class MapCreator(object):
         return self.__cmdArgs
     
     def cutMapDataWithPolygon(self):
+        self.isDataFileOk(self.getArgs().inputfile)
+        self.isPolyFileOk(self.getArgs().poly)
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile=self.getArgs().inputfile, 
-                                                     outfile=self.__dataDir + "/temp.osm",
+                                                     outfile=self.__dataDir + "temp.osm",
                                                      poly=self.getArgs().poly)
         logging.debug('cutMapDataWithPolygon: cmdstr = %s' % cmdstr)
         res = self.__executor.execShellCmd(cmdstr)
         return res
     
     def cutMapDataWithBoundingBox(self):
-        cmdstr = self.__osmosisCmd.cutMapWithBoundingBox()
+        self.isDataFileOk(self.getArgs().inputfile)
+        cmdstr = self.__osmosisCmd.cutMapWithBoundingBox(infile=self.getArgs().inputfile, 
+                                                         outfile=self.__dataDir + "temp.osm")
         logging.debug('cutMapDataWithBoundingBox: cmdstr = %s' % cmdstr)
         res = self.__executor.execShellCmd(cmdstr)
         return res
     
-    def isKnownExtension(self, inputfile):
+    def isKnownDataFileExtension(self, inputfile):
         dummy, file_extension = os.path.splitext(inputfile)
         return file_extension in ('.bz2', '.osm', '.pbf')
+      
+    def isKnownPolyFileExtension(self, inputfile):
+        dummy, file_extension = os.path.splitext(inputfile)
+        return file_extension in ('.poly', '.txt')
     
-    def isInputFileOk(self, inputfile):
+    def checkFileExists(self, infile):
         # the following statement will throw an error if the input file can't be read
-        with open(inputfile, 'r') as dummy:
+        with open(infile, 'r') as dummy:
             pass
-        
-        return self.isKnownExtension(inputfile)
+        return True
+    
+    def isDataFileOk(self, datafile):
+        self.checkFileExists(datafile)
+        return self.isKnownDataFileExtension(datafile)
+    
+    def isPolyFileOk(self, polyfile):
+        self.checkFileExists(polyfile)
+        return self.isKnownPolyFileExtension(polyfile)
         
           
 if __name__ == "__main__":

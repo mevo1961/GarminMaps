@@ -7,7 +7,6 @@ import unittest
 import datetime
 import time
 import sys
-import os
 import xmlrunner
 
 sys.path.append('../../src/python')

@@ -17,7 +17,7 @@ class OsmosisCommand(object):
         '''
         Constructor
         '''
-        self.__toolsDir = os.path.abspath("../../tools")
+        self.__toolsDir = os.path.abspath("../../tools/")
         self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
           
     def cutMapWithPolygon(self, infile="germany.osm", outfile="temp.osm", poly="germany.poly"):

@@ -19,7 +19,7 @@ class Test_OsmosisCommand(unittest.TestCase):
 
 
     def setUp(self):
-        self.__toolsDir = os.path.abspath("../../tools")
+        self.__toolsDir = os.path.abspath("../../tools") + "/"
         self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
         self.__osmosisCmd = OsmosisCommand()
         logging.basicConfig(level=logging.DEBUG)
