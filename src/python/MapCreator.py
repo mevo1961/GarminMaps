@@ -18,7 +18,7 @@ class MapCreator(object):
     '''
 
 
-    def __init__(self, options, test=False):
+    def __init__(self, options, test = False):
         '''
         Constructor
         '''
@@ -27,7 +27,7 @@ class MapCreator(object):
         self.__dataDir = os.path.abspath("../../data") + "/"
         self.__osmosisCmd = OsmosisCommand()
         self.__executor = ShellCommand(test)
-        logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(level=logging.INFO)
         logging.debug('MapCreator created with testmode = %s' % test)
     
     def parseCmdLine(self, options):
