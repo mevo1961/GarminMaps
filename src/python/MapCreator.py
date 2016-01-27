@@ -120,8 +120,12 @@ class MapCreator(object):
     
     def cutMapDataWithBoundingBox(self):
         self.isDataFileOk(self.getArgs().inputfile)
-        cmdstr = self.__osmosisCmd.cutMapWithBoundingBox(infile=self.getArgs().inputfile, 
-                                                         outfile=self.__dataDir + "temp.osm")
+        cmdstr = self.__osmosisCmd.cutMapWithBoundingBox(infile  = self.getArgs().inputfile, 
+                                                         outfile = self.__dataDir + "temp.osm",
+                                                         top     = self.getArgs().top,
+                                                         left    = self.getArgs().left,
+                                                         bottom  = self.getArgs().bottom,
+                                                         right   = self.getArgs().right)
         logging.debug('cutMapDataWithBoundingBox: cmdstr = %s' % cmdstr)
         res = self.__executor.execShellCmd(cmdstr)
         return res
