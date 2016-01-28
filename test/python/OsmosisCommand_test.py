@@ -31,21 +31,21 @@ class Test_OsmosisCommand(unittest.TestCase):
 
     def testCutMapWithPolygon_Default(self):
         cmdstr = self.__osmosisCmd.cutMapWithPolygon()
-        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-polygon file="germany.poly" --write-xml file="temp.osm"'
+        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-polygon file="germany.poly" completeWays=no idTrackerType=Dynamic --write-xml file="temp.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
         self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
     
     def testCutMapWithPolygon_Parameters(self):
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile="input.osm", outfile="output.osm", poly="borders.poly")
-        expectedStr = self.__osmosisTool + ' --read-xml file="input.osm" --bounding-polygon file="borders.poly" --write-xml file="output.osm"'
+        expectedStr = self.__osmosisTool + ' --read-xml file="input.osm" --bounding-polygon file="borders.poly" completeWays=no idTrackerType=Dynamic --write-xml file="output.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
         self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
         
     def testCutMapWithBoundingBox_Default(self):
         cmdstr = self.__osmosisCmd.cutMapWithBoundingBox()
-        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=55.2 left=5.7 bottom=47.2 right=15.1 --write-xml file="temp.osm"'
+        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=55.2 left=5.7 bottom=47.2 right=15.1 completeWays=no idTrackerType=Dynamic --write-xml file="temp.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
         self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
@@ -53,7 +53,7 @@ class Test_OsmosisCommand(unittest.TestCase):
         
     def testCutMapWithBoundingBox_Parameters(self):
         cmdstr = self.__osmosisCmd.cutMapWithBoundingBox(top=49.5138, left=10.9351, bottom=49.3866, right=11.201)
-        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=49.5138 left=10.9351 bottom=49.3866 right=11.201 --write-xml file="temp.osm"'
+        expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=49.5138 left=10.9351 bottom=49.3866 right=11.201 completeWays=no idTrackerType=Dynamic --write-xml file="temp.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
         self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
