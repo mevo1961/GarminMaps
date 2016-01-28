@@ -89,7 +89,7 @@ class Test_MapCreator(unittest.TestCase):
         self.creator = MapCreator(shlex.split(argString), test=True)
         result = self.creator.cutMapDataWithPolygon()
         logging.debug('commandstring returned by MapCreator: %s' % result)
-        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-polygon file="' + self.__dataDir + 'germany.poly" --write-xml file="' + outfile + '"'
+        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-polygon file="' + self.__dataDir + 'germany.poly" completeWays=no idTrackerType=Dynamic --write-xml file="' + outfile + '"'
         logging.debug('expected commandstring:               %s' % expectedStr)
         self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon')
     
