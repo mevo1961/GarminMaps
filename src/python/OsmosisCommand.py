@@ -24,7 +24,7 @@ class OsmosisCommand(object):
         cmd = self.__osmosisTool                             + \
               ' --read-xml file="'         + infile    + '"' + \
               ' --bounding-polygon file="' + poly      + '"' + \
-              ' completeWays=no idTrackerType=Dynamic'       + \
+              ' completeWays=no'                            + \
               ' --write-xml file="'        + outfile         + '"'
               
         return cmd
@@ -35,6 +35,6 @@ class OsmosisCommand(object):
               ' --read-xml file="'   + infile      + '"'                    + \
               ' --bounding-box top=' + str(top)    + ' left=' + str(left)   + \
               ' bottom='             + str(bottom) + ' right=' + str(right) + \
-              ' completeWays=no idTrackerType=Dynamic'                      + \
+              ' completeWays=no'                                           + \
               ' --write-xml file="'  + outfile     + '"'
         return cmd
