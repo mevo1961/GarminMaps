@@ -156,4 +156,4 @@ class MapCreator(object):
 if __name__ == "__main__":
     args = MapCreator(sys.argv[1:]).getArgs()
     print ("inputfile = %s") % (args.inputfile)
-    print args
+    print (args)
