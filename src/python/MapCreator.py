@@ -6,6 +6,7 @@ Created on 25.10.2015
 
 from argparse import ArgumentParser
 import shlex
+import sys
 import os
 import logging
 
@@ -32,7 +33,6 @@ class MapCreator(object):
     
     def parseCmdLine(self, options):
         parser = ArgumentParser(description='Create a Garmin map from OpenStreetMap data')
-        # parser = ArgumentParser()
 
         mandatory = parser.add_argument_group('mandatory arguments')
 
@@ -154,7 +154,6 @@ class MapCreator(object):
         
           
 if __name__ == "__main__":
-    argString = '-i input.txt'
-    args = MapCreator(shlex.split(argString)).getArgs()
-    # args = MapCreator(sys.argv[1:]).getArgs()
+    args = MapCreator(sys.argv[1:]).getArgs()
     print ("inputfile = %s") % (args.inputfile)
+    print args
