@@ -20,6 +20,7 @@ class Test_MapCreator(unittest.TestCase):
 
 
     def setUp(self):
+        self.maxDiff = None
         self.__toolsDir = os.path.abspath("../../tools") + "/"
         self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
         self.__dataDir = os.path.abspath("../../data") + "/"
@@ -88,10 +89,17 @@ class Test_MapCreator(unittest.TestCase):
         outfile = self.__dataDir + "temp.osm"
         self.creator = MapCreator(shlex.split(argString), test=True)
         result = self.creator.cutMapDataWithPolygon()
-        logging.debug('commandstring returned by MapCreator: %s' % result)
-        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-polygon file="' + self.__dataDir + 'germany.poly" completeWays=no idTrackerType=Dynamic --write-xml file="' + outfile + '"'
-        logging.debug('expected commandstring:               %s' % expectedStr)
-        self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon')
+        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-polygon file="' + self.__dataDir + 'germany.poly" completeWays=no --write-xml file="' + outfile + '"'
+        self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon, \nexpected: %s,\nbut was:  %s' % (expectedStr, result))
+        
+            
+    def testCutMapDataWithBoundingBox(self):
+        argString = '-i ' + self.__dataDir + 'germany.osm -t 48.5 -l 9.8 -b 48.4 -r 10.0'
+        outfile = self.__dataDir + "temp.osm"
+        self.creator = MapCreator(shlex.split(argString), test=True)
+        result = self.creator.cutMapDataWithBoundingBox()
+        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-box top=48.5 left=9.8 bottom=48.4 right=10.0 completeWays=no --write-xml file="' + outfile + '"'
+        self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon, \nexpected: %s,\nbut was:  %s' % (expectedStr, result))
     
     def testIsDataFileOk(self):
         argString = '-i input.txt'

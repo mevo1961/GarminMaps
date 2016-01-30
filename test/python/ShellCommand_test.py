@@ -8,6 +8,7 @@ import datetime
 import time
 import sys
 import xmlrunner
+import logging
 
 sys.path.append('../../src/python')
 
@@ -19,6 +20,7 @@ class Test_ShellCommand(unittest.TestCase):
 
     def setUp(self):
         self.executor = ShellCommand()
+        logging.basicConfig(level=logging.INFO)
 
 
     def tearDown(self):
