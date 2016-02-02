@@ -34,21 +34,19 @@ class Test_OsmosisCommand(unittest.TestCase):
         expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-polygon file="germany.poly" completeWays=no --write-xml file="temp.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
-        self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
+        self.assertEqual(expectedStr, cmdstr,  'unexpected cmdstr, \nexpected: %s,\nbut was: %s' % (expectedStr, cmdstr))
     
     def testCutMapWithPolygon_Parameters(self):
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile="input.osm", outfile="output.osm", poly="borders.poly")
         expectedStr = self.__osmosisTool + ' --read-xml file="input.osm" --bounding-polygon file="borders.poly" completeWays=no --write-xml file="output.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
-        self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
+        self.assertEqual(expectedStr, cmdstr,  'unexpected cmdstr, \nexpected: %s,\nbut was: %s' % (expectedStr, cmdstr))
         
     def testCutMapWithBoundingBox_Default(self):
         cmdstr = self.__osmosisCmd.cutMapWithBoundingBox()
         expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=55.2 left=5.7 bottom=47.2 right=15.1 completeWays=no --write-xml file="temp.osm"'
-        logging.debug('cmdstr   = %s' % cmdstr)
-        logging.debug('expected = %s' % expectedStr)
-        self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
+        self.assertEqual(expectedStr, cmdstr,  'unexpected cmdstr, \nexpected: %s,\nbut was: %s' % (expectedStr, cmdstr))
         
         
     def testCutMapWithBoundingBox_Parameters(self):
@@ -56,7 +54,7 @@ class Test_OsmosisCommand(unittest.TestCase):
         expectedStr = self.__osmosisTool + ' --read-xml file="germany.osm" --bounding-box top=49.5138 left=10.9351 bottom=49.3866 right=11.201 completeWays=no --write-xml file="temp.osm"'
         logging.debug('cmdstr   = %s' % cmdstr)
         logging.debug('expected = %s' % expectedStr)
-        self.assertEqual(expectedStr, cmdstr,  'cmdstring was not composed properly')
+        self.assertEqual(expectedStr, cmdstr,  'unexpected cmdstr, \nexpected: %s,\nbut was: %s' % (expectedStr, cmdstr))
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))

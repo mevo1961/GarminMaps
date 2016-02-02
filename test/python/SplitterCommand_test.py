@@ -10,9 +10,10 @@ import time
 import unittest
 import xmlrunner
 
+sys.path.append('../../src/python')
+
 from SplitterCommand import SplitterCommand
 
-sys.path.append('../../src/python')
 
 class SplitterCommand_test(unittest.TestCase):
 
@@ -21,6 +22,7 @@ class SplitterCommand_test(unittest.TestCase):
         self.__toolsDir = os.path.abspath("../../tools") + "/"
         self.__splitterTool = os.path.join(self.__toolsDir, "splitter/lib/splitter.jar")
         self.__splitterCmd = SplitterCommand()
+        self.__dataDir = os.path.abspath("../../data") + "/"
         logging.basicConfig(level=logging.DEBUG)
 
 
@@ -29,7 +31,11 @@ class SplitterCommand_test(unittest.TestCase):
 
 
     def testsplitAreaIntoTiles(self):
-        cmdstr = self.__splitterCmd.splitAreaIntoTiles()
+        cmdstr = self.__splitterCmd.splitAreaIntoTiles(self.__dataDir + "temp.osm")
+        expectedStr = "java -Xmx2000M -jar " + self.__splitterTool + \
+                      " --mapid=${MAPID}0001 --max-nodes=800000 --max-areas=20 " +  self.__dataDir + "temp.osm"
+        self.assertEqual(expectedStr, cmdstr,  
+                            'SplitterCmd was not composed properly, \nexpected: %s,\nbut was:  %s' % (expectedStr, cmdstr))
 
 
 if __name__ == "__main__":
