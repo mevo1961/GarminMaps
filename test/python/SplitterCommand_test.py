@@ -31,9 +31,9 @@ class SplitterCommand_test(unittest.TestCase):
 
 
     def testsplitAreaIntoTiles(self):
-        cmdstr = self.__splitterCmd.splitAreaIntoTiles(self.__dataDir + "temp.osm")
+        cmdstr = self.__splitterCmd.splitAreaIntoTiles(self.__dataDir + "temp.osm", self.__dataDir)
         expectedStr = "java -Xmx2000M -jar " + self.__splitterTool + \
-                      " --mapid=${MAPID}0001 --max-nodes=800000 --max-areas=20 " +  self.__dataDir + "temp.osm"
+                      " --mapid=${MAPID}0001 --max-nodes=800000 --max-areas=20 --output-dir=" + self.__dataDir + " " +self.__dataDir + "temp.osm"
         self.assertEqual(expectedStr, cmdstr,  
                             'SplitterCmd was not composed properly, \nexpected: %s,\nbut was:  %s' % (expectedStr, cmdstr))
 

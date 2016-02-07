@@ -113,8 +113,7 @@ class Test_MapCreator(unittest.TestCase):
         self.assertTrue(self.creator.isDataFileOk(infile), "%s is a not valid inputfile" % infile)
         # the following infile must not be accepted
         infile = self.__dataDir + 'mapdata.txt'
-        self.assertFalse(self.creator.isDataFileOk(infile), "%s is a valid inputfile" % infile)
-    
+        self.assertFalse(self.creator.isDataFileOk(infile), "%s is a valid inputfile" % infile) 
     
     def testIsPolyFileOk(self):
         argString = '-i germany.osm -p input.poly'
@@ -128,8 +127,15 @@ class Test_MapCreator(unittest.TestCase):
         self.assertTrue(self.creator.isPolyFileOk(polyfile), "%s is a not valid inputfile" % polyfile)
         # the following infile must not be accepted
         polyfile = self.__dataDir + 'germany.osm'
-        self.assertFalse(self.creator.isPolyFileOk(polyfile), "%s is a valid inputfile" % polyfile)    
+        self.assertFalse(self.creator.isPolyFileOk(polyfile), "%s is a valid inputfile" % polyfile)
+        
+    def testSplitOsmFileIntoTiles(self):
+        testfile = self.__dataDir + "temp.osm"
+        os.open(testfile, os.O_CREAT)
+        self.creator.splitOsmFileIntoTiles(self.__dataDir, testfile)
+            
 
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))
+    

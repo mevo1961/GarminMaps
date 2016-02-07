@@ -21,7 +21,7 @@ class SplitterCommand(object):
         self.__splitterTool = os.path.join(self.__toolsDir, "splitter/lib/splitter.jar")
         self.__dataDir = os.path.abspath("../../data") + "/"
     
-    def splitAreaIntoTiles(self, infile):
+    def splitAreaIntoTiles(self, infile, outdir):
         cmd = "java -Xmx2000M -jar " + self.__splitterTool + \
-              " --mapid=${MAPID}0001 --max-nodes=800000 --max-areas=20 " + infile
+              " --mapid=${MAPID}0001 --max-nodes=800000 --max-areas=20 --output-dir=" + outdir + " " + infile
         return cmd
