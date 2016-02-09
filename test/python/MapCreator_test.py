@@ -23,6 +23,7 @@ class Test_MapCreator(unittest.TestCase):
         self.maxDiff = None
         self.__toolsDir = os.path.abspath("../../tools") + "/"
         self.__osmosisTool = os.path.join(self.__toolsDir, "osmosis/bin/osmosis")
+        self.__splitterTool = os.path.join(self.__toolsDir, "splitter/splitter.jar") 
         self.__dataDir = os.path.abspath("../../data") + "/"
         logging.basicConfig(level=logging.DEBUG)
 
@@ -130,10 +131,14 @@ class Test_MapCreator(unittest.TestCase):
         self.assertFalse(self.creator.isPolyFileOk(polyfile), "%s is a valid inputfile" % polyfile)
         
     def testSplitOsmFileIntoTiles(self):
+        argString = '-i ' + self.__dataDir + 'germany.osm'
+        self.creator = MapCreator(shlex.split(argString), test=True)
         testfile = self.__dataDir + "temp.osm"
         os.open(testfile, os.O_CREAT)
-        self.creator.splitOsmFileIntoTiles(self.__dataDir, testfile)
-            
+        result = self.creator.splitOsmFileIntoTiles(testfile, self.__dataDir)
+        expectedStr = "java -Xmx2000M -jar " + self.__splitterTool + \
+              " --mapid=64000001 --max-nodes=800000 --max-areas=20 --output-dir=" + self.__dataDir + " " + testfile
+        self.assertEqual(expectedStr, result, 'unexpected command for splitting osm-file into tiles, \nexpected: %s,\nbut was:  %s' % (expectedStr, result))       
 
 
 if __name__ == "__main__":

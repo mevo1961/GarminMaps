@@ -45,6 +45,13 @@ class Test_MapCreator_Longrunning(unittest.TestCase):
         self.creator.cutMapDataWithBoundingBox()
         self.creator.checkFileExists(outfile)
         os.remove(outfile)
+        
+    def testSplitOsmFileIntoTiles(self):
+        argString = '-i ' + self.__dataDir + 'bremen-latest.osm --mi 6400'
+        self.creator = MapCreator(shlex.split(argString), test=False)
+        testfile = self.__dataDir + "bremen-latest.osm"
+        self.creator.splitOsmFileIntoTiles(testfile, self.__dataDir)
+        
 
 if __name__ == "__main__":
     unittest.main(testRunner=xmlrunner.XMLTestRunner(output = 'test-reports', outsuffix = time.strftime("%Y%m%d%H%M%S")))

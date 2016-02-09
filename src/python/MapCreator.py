@@ -12,6 +12,7 @@ import logging
 
 from ShellCommand import ShellCommand
 from OsmosisCommand import OsmosisCommand
+from SplitterCommand import SplitterCommand
 
 class MapCreator(object):
     '''
@@ -28,6 +29,7 @@ class MapCreator(object):
         self.__dataDir = os.path.abspath("../../data") + "/"
         self.__osmosisCmd = OsmosisCommand()
         self.__executor = ShellCommand(test)
+        self.__splitterCmd = SplitterCommand()
         logging.basicConfig(level=logging.INFO)
         logging.debug('MapCreator created with testmode = %s' % test)
     
@@ -151,6 +153,13 @@ class MapCreator(object):
     def isPolyFileOk(self, polyfile):
         self.checkFileExists(polyfile)
         return self.isKnownPolyFileExtension(polyfile)
+    
+    def splitOsmFileIntoTiles(self, inputfile, outputdir):
+        self.isDataFileOk(self.getArgs().inputfile)
+        cmdstr = self.__splitterCmd.splitAreaIntoTiles(inputfile, outputdir, str(self.getArgs().mapid))
+        logging.debug('splitOsmFileIntoTiles: cmdstr = %s' % cmdstr)
+        res = self.__executor.execShellCmd(cmdstr)
+        return res
         
           
 if __name__ == "__main__":
