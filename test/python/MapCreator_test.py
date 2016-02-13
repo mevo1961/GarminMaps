@@ -61,7 +61,7 @@ class Test_MapCreator(unittest.TestCase):
         
     
     def testParseCmdLine_Defaults(self):
-        argString = '-i input.txt'
+        argString = '-i input.osm'
         self.creator = MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
 
@@ -83,14 +83,14 @@ class Test_MapCreator(unittest.TestCase):
         
         self.assertEqual(False,       cmdArgs.nocontours, 'nocontours flag was not parsed properly')
            
-        self.assertEqual('input.txt', cmdArgs.inputfile,  'inputfile was not parsed properly')
+        self.assertEqual('input.osm', cmdArgs.inputfile,  'inputfile was not parsed properly')
         
     def testCutMapDataWithPolygon(self):
-        argString = '-i ' + self.__dataDir + 'germany.osm -p ' + self.__dataDir + 'germany.poly'
-        outfile = self.__dataDir + "temp.osm"
+        argString = '-i ' + self.__dataDir + 'germany.osm.pbf -p ' + self.__dataDir + 'germany.poly'
+        outfile = self.__dataDir + "temp.osm.pbf"
         self.creator = MapCreator(shlex.split(argString), test=True)
         result = self.creator.cutMapDataWithPolygon()
-        expectedStr = self.__osmosisTool + ' --read-xml file="' + self.__dataDir + 'germany.osm" --bounding-polygon file="' + self.__dataDir + 'germany.poly" completeWays=no --write-xml file="' + outfile + '"'
+        expectedStr = self.__osmosisTool + ' --read-pbf file="' + self.__dataDir + 'germany.osm.pbf" --bounding-polygon file="' + self.__dataDir + 'germany.poly" completeWays=no --write-pbf file="' + outfile + '"'
         self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon, \nexpected: %s,\nbut was:  %s' % (expectedStr, result))
         
             
@@ -103,7 +103,7 @@ class Test_MapCreator(unittest.TestCase):
         self.assertEqual(expectedStr, result, 'unexpected command for cutting mapdata with polygon, \nexpected: %s,\nbut was:  %s' % (expectedStr, result))
     
     def testIsDataFileOk(self):
-        argString = '-i input.txt'
+        argString = '-i input.osm'
         self.creator = MapCreator(shlex.split(argString))
         cmdArgs = self.creator.getArgs()
         # file does not exist, must throw exception

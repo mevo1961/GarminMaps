@@ -30,6 +30,7 @@ class MapCreator(object):
         self.__osmosisCmd = OsmosisCommand()
         self.__executor = ShellCommand(test)
         self.__splitterCmd = SplitterCommand()
+        self.__extension = self.mapFileExtension(self.__cmdArgs.inputfile)
         logging.basicConfig(level=logging.INFO)
         logging.debug('MapCreator created with testmode = %s' % test)
     
@@ -110,11 +111,19 @@ class MapCreator(object):
     def getArgs(self):
         return self.__cmdArgs
     
+    def mapFileExtension(self, infile):
+        (dummy, extension) = os.path.splitext(infile)
+        if (not self.isKnownDataFileExtension(extension)):
+            raise ValueError('unknown input file extension', extension)
+        mapExtension = { '.osm' : '.osm', '.bz2' : '.osm', '.pbf' : '.osm.pbf'}
+        ending = mapExtension[extension]
+        return ending
+    
     def cutMapDataWithPolygon(self):
         self.isDataFileOk(self.getArgs().inputfile)
         self.isPolyFileOk(self.getArgs().poly)
         cmdstr = self.__osmosisCmd.cutMapWithPolygon(infile=self.getArgs().inputfile, 
-                                                     outfile=self.__dataDir + "temp.osm",
+                                                     outfile=self.__dataDir + "temp" + self.__extension,
                                                      poly=self.getArgs().poly)
         logging.debug('cutMapDataWithPolygon: cmdstr = %s' % cmdstr)
         res = self.__executor.execShellCmd(cmdstr)
@@ -123,7 +132,7 @@ class MapCreator(object):
     def cutMapDataWithBoundingBox(self):
         self.isDataFileOk(self.getArgs().inputfile)
         cmdstr = self.__osmosisCmd.cutMapWithBoundingBox(infile  = self.getArgs().inputfile, 
-                                                         outfile = self.__dataDir + "temp.osm",
+                                                         outfile = self.__dataDir + "temp" + self.__extension,
                                                          top     = self.getArgs().top,
                                                          left    = self.getArgs().left,
                                                          bottom  = self.getArgs().bottom,
@@ -132,8 +141,7 @@ class MapCreator(object):
         res = self.__executor.execShellCmd(cmdstr)
         return res
     
-    def isKnownDataFileExtension(self, inputfile):
-        dummy, file_extension = os.path.splitext(inputfile)
+    def isKnownDataFileExtension(self, file_extension):
         return file_extension in ('.bz2', '.osm', '.pbf')
       
     def isKnownPolyFileExtension(self, inputfile):
@@ -148,7 +156,8 @@ class MapCreator(object):
     
     def isDataFileOk(self, datafile):
         self.checkFileExists(datafile)
-        return self.isKnownDataFileExtension(datafile)
+        dummy, file_extension = os.path.splitext(datafile)
+        return self.isKnownDataFileExtension(file_extension)
     
     def isPolyFileOk(self, polyfile):
         self.checkFileExists(polyfile)

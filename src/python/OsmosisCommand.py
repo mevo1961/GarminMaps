@@ -44,6 +44,8 @@ class OsmosisCommand(object):
     def _getDataType(self, infile):
         (dummy, extension) = os.path.splitext(infile)
         datatype = 'unknown'
+        if (extension == '.bz2'):
+            datatype = 'xml'
         if (extension == '.osm'):
             datatype = 'xml'
         if (extension == '.pbf'):
