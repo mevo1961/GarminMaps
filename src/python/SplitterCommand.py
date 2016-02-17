@@ -5,7 +5,6 @@ Created on 31.01.2016
 '''
 
 import os
-import logging
 
 class SplitterCommand(object):
     '''

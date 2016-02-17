@@ -149,8 +149,8 @@ class MapCreator(object):
         return file_extension in ('.poly', '.txt')
     
     def checkFileExists(self, infile):
-        # the following statement will throw an error if the input file can't be read
-        with open(infile, 'r') as dummy:
+        # the following statement will throw an exception if the input file can't be read
+        with open(infile, 'r'):
             pass
         return True
     
